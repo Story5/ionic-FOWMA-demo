@@ -1,14 +1,38 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Open file with mobile app
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-item-group padding-bottom>
+    <button ion-button icon-left block color="dark" (click)="checkApp()">
+      <ion-icon name="appstore"></ion-icon>
+      check App
+    </button>
+  </ion-item-group>
+  
+  <ion-item-group padding-bottom>
+    <button ion-button icon-left block color="danger" (click)="openPDF()">
+      <ion-icon name="document"></ion-icon>
+      open PDF
+    </button>
+  </ion-item-group>
+  
+  <ion-item-group>
+    <button ion-button icon-left block color="primary" (click)="openOffice(0)">
+      <ion-icon name="paper"></ion-icon>
+      open Word
+    </button>
+    <button ion-button icon-left block color="secondary" (click)="openOffice(1)">
+      <ion-icon name="stats"></ion-icon>
+      open Excel
+    </button>
+    <button ion-button icon-left block color="danger" (click)="openOffice(2)">
+      <ion-icon name="easel"></ion-icon>
+      open PPT
+    </button>
+  </ion-item-group>
 </ion-content>
