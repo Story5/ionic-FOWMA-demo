@@ -64,3 +64,5 @@ iOSInjectionProject/
 
 node_modules/
 www/
+plugins/
+.vscode/

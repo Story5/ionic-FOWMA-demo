@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { SxFileOpenerProvider } from '../../providers/sx-file-opener/sx-file-opener';
 
 enum Office {
   Word = 0,
@@ -13,7 +14,10 @@ enum Office {
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public sxfileopener:SxFileOpenerProvider
+  ) {
 
   }
 
@@ -22,7 +26,15 @@ export class HomePage {
   }
 
   openPDF() {
-
+    let filePath = "assets/file/pdf.pdf";
+    this.sxfileopener.open(filePath, 'application/pdf').then(
+      () => {
+        console.log('File is opened')
+      }).catch(
+        e => {
+          console.log('Error opening file', e)
+          alert(e);
+        });
   }
 
   openOffice(type) {
