@@ -3,6 +3,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 import { FilePath } from '@ionic-native/file-path';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { AppAvailability } from '@ionic-native/app-availability';
 
 /*
   Generated class for the SxFileOpenerProvider provider.
@@ -18,12 +19,29 @@ export class SxFileOpenerProvider {
     public fileOpener: FileOpener,
     public filePath: FilePath,
     public launchNavigator: LaunchNavigator,
+    public appAvailability: AppAvailability,
   ) {
     
   }
 
+  check(app) {
+    return this.appAvailability.check(app);
+  }
+
+  navigate(destination, options) {
+     return this.launchNavigator.navigate(destination,options);
+  }
+
   availableApps() {
     return this.launchNavigator.availableApps();
+  }
+
+  isAppAvailable(app:string) {
+    return this.launchNavigator.isAppAvailable(app);
+  }
+
+  getAppDisplayName(app:string) {
+    return this.launchNavigator.getAppDisplayName(app);
   }
 
   resolveNativePath(path) {

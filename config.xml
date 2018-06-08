@@ -43,6 +43,9 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <allow-intent href="weixin:*" />
+        <allow-intent href="pricetag:*" />
+        <allow-intent href="twitter:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
@@ -89,6 +92,15 @@
         <variable name="OKHTTP_VERSION" value="3.+" />
         <variable name="LOCATION_USAGE_DESCRIPTION" value="This app requires access to your location for navigation purposes" />
     </plugin>
+    <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
+    <edit-config file="*-Info.plist" mode="merge" target="LSApplicationQueriesSchemes">
+        <array>
+            <string>twitter</string>
+            <string>weixin</string>
+            <string>pricetag</string>
+        </array>
+    </edit-config>
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
 </widget>

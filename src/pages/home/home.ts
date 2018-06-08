@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { SxFileOpenerProvider } from '../../providers/sx-file-opener/sx-file-opener';
 import { DocumentViewerOptions } from '@ionic-native/document-viewer';
+import { SxTipProvider } from '../../providers/sx-tip';
+import { LaunchNavigatorOptions, LaunchNavigator } from '@ionic-native/launch-navigator';
+
 
 enum Office {
   Word = 0,
@@ -20,26 +23,41 @@ export class HomePage {
   constructor(
     public platform:Platform,
     public navCtrl: NavController,
-    public sxfileopener:SxFileOpenerProvider
+    public sxfileopener:SxFileOpenerProvider,
+    public sxtip:SxTipProvider
   ) {
 
   }
 
-  checkApp() {
+  
+
+  availableApps() {
     this.platform.ready().then(()=>{
       this.sxfileopener.availableApps().then((apps:any)=>{
         for (const key in apps) {
           if (apps.hasOwnProperty(key)) {
             const element = apps[key];
-            if (element) {
-              this.appList.push(key);
-            }
+            this.appList.push({
+              app: key,
+              appName: this.sxfileopener.getAppDisplayName(key),
+              state: element
+            });
           }
         }
-        console.log("成功了:", JSON.stringify(apps));
       }).catch(error => {
-        console.error("出错了:",JSON.stringify(error));
       })
+    })
+  }
+
+  checkApp() {
+    this.sxtip.showPrompt("CheckApp", "Please input the app's URL Scheme","URLScheme","URL Scheme",(data)=>{
+      let app = data.URLScheme;
+      app = app + "://";
+      this.sxfileopener.check(app).then(data => {
+        console.log("检查成功了:",JSON.stringify(data));
+      }).catch(error => {
+        console.error("检查失败了:", JSON.stringify(error));
+      });
     })
   }
 
@@ -91,6 +109,10 @@ export class HomePage {
 
   openDWG() {
 
+  }
+
+  jumpToApp(item) {
+    
   }
 
 }

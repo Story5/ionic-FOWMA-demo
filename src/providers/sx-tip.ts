@@ -44,6 +44,32 @@ export class SxTipProvider {
     );
   }
 
+  showPrompt(title,message,inputsName,inputsPlaceholder,confirmHandler) {
+    const prompt = this.alertCtrl.create({
+      title: title,
+      message: message,
+      inputs: [
+        {
+          name: inputsName,
+          placeholder: inputsPlaceholder
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: confirmHandler
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   alertTemplate(
     subTitle?: string,
     cancelText: string = "取消",

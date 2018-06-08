@@ -8,9 +8,14 @@
 
 <ion-content padding>
   <ion-item-group padding-bottom>
+    <button ion-button icon-left block color="dark" (click)="availableApps()">
+      <ion-icon name="appstore"></ion-icon>
+      availableApps
+    </button>
+
     <button ion-button icon-left block color="dark" (click)="checkApp()">
       <ion-icon name="appstore"></ion-icon>
-      check App
+       checkApp
     </button>
   </ion-item-group>
   
@@ -43,9 +48,11 @@
     </button>
   </ion-item-group>
 
-  <ion-list *ngIf="appList.length > 0">
-    <ion-item *ngFor="let item of appList">
-      {{item}}
-    </ion-item>
-  </ion-list>
+  <ion-grid *ngIf="appList.length > 0">
+    <ion-row *ngFor="let item of appList" (click)="jumpToApp(item)">
+      <ion-col col-4>{{item.app}}</ion-col>
+      <ion-col col-4>{{item.appName}}</ion-col>
+      <ion-col col-4>{{item.state}}</ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
