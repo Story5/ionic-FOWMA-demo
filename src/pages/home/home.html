@@ -21,7 +21,7 @@
     </button>
   </ion-item-group>
   
-  <ion-item-group>
+  <ion-item-group padding-bottom>
     <button ion-button icon-left block color="primary" (click)="openOffice(0)">
       <ion-icon name="paper"></ion-icon>
       open Word
@@ -35,4 +35,17 @@
       open PPT
     </button>
   </ion-item-group>
+
+  <ion-item-group>
+    <button ion-button icon-left block color="light" (click)="openDWG()">
+      <ion-icon name="cube"></ion-icon>
+      open DWG
+    </button>
+  </ion-item-group>
+
+  <ion-list *ngIf="appList.length > 0">
+    <ion-item *ngFor="let item of appList">
+      {{item}}
+    </ion-item>
+  </ion-list>
 </ion-content>

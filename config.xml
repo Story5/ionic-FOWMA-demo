@@ -82,5 +82,13 @@
     <plugin name="cordova-plugin-ionic-webview" spec="1.1.19" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
-    <engine name="ios" spec="~4.5.4" />
+    <plugin name="cordova-plugin-document-viewer" spec="^0.9.10" />
+    <allow-navigation href="http://192.168.0.19:8100" />
+    <plugin name="cordova-plugin-filepath" spec="^1.3.0" />
+    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.1">
+        <variable name="OKHTTP_VERSION" value="3.+" />
+        <variable name="LOCATION_USAGE_DESCRIPTION" value="This app requires access to your location for navigation purposes" />
+    </plugin>
+    <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="7.0.0" />
 </widget>
