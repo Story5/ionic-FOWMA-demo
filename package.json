@@ -26,6 +26,7 @@
     "@ionic-native/document-viewer": "^4.7.0",
     "@ionic-native/file-opener": "^4.7.0",
     "@ionic-native/file-path": "^4.7.0",
+    "@ionic-native/in-app-browser": "^4.7.0",
     "@ionic-native/launch-navigator": "^4.7.0",
     "@ionic-native/splash-screen": "4.7.0",
     "@ionic-native/status-bar": "4.7.0",

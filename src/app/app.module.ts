@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { FilePath } from '@ionic-native/file-path';
@@ -11,9 +13,9 @@ import { AppAvailability } from '@ionic-native/app-availability';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { SxCheckAppProvider } from '../providers/sx-check-app/sx-check-app';
 import { SxTipProvider } from '../providers/sx-tip';
 import { SxFileOpenerProvider } from '../providers/sx-file-opener/sx-file-opener';
+import { SxBrowserProvider } from '../providers/sx-browser';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,10 @@ import { SxFileOpenerProvider } from '../providers/sx-file-opener/sx-file-opener
     FilePath,
     LaunchNavigator,
     AppAvailability,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SxCheckAppProvider,
     SxTipProvider,
+    SxBrowserProvider,
     SxFileOpenerProvider
   ]
 })
