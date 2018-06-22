@@ -10,8 +10,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SxTipProvider } from '../providers/sx-tip';
-import { SxFileOpenerProvider } from '../providers/sx-file-opener/sx-file-opener';
-import { SxBrowserProvider } from '../providers/sx-browser';
+import { SxFileHelperProvider } from '../providers/sx-file-helper/sx-file-helper';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { SxBrowserProvider } from '../providers/sx-browser';
     FileOpener,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SxTipProvider,
-    SxBrowserProvider,
-    SxFileOpenerProvider
+    SxFileHelperProvider
   ]
 })
 export class AppModule {}

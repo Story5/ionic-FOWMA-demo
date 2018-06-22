@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { SxFileOpenerProvider } from '../../providers/sx-file-opener/sx-file-opener';
 import { SxTipProvider } from '../../providers/sx-tip';
-import { Entry } from '@ionic-native/file';
+import { Entry, File } from '@ionic-native/file';
+import { SxFileHelperProvider } from '../../providers/sx-file-helper/sx-file-helper';
 
 enum FileMIMEType {
   MIME_PDF = "application/pdf",
@@ -37,14 +37,15 @@ export class HomePage {
   constructor(
     public platform:Platform,
     public navCtrl: NavController,
-    public sxfileopener:SxFileOpenerProvider,
-    public sxtip:SxTipProvider,
+    public sxtip: SxTipProvider,
+    public sxfilehelper:SxFileHelperProvider,
+    public file : File
   ) {
 
   }
 
   openPDF() {
-    
+    this.saveImg();
   }
 
   openOffice(type) {
@@ -71,7 +72,7 @@ export class HomePage {
     var path = "assets/file/dwg.dwg";
     path = decodeURI(path);
     console.log("decodeURI:",path);
-    this.sxfileopener.resolveLocalFilesystemUrl(path).then((entry: Entry)=>{
+    this.sxfilehelper.resolveLocalFilesystemUrl(path).then((entry: Entry)=>{
       console.log("resolve1-fullPath:" + entry.fullPath);
       console.log("resolve1-nativeURL:" + entry.nativeURL);
     }).catch(error => {
@@ -88,13 +89,41 @@ export class HomePage {
   }
 
   openFile(filePath: string, fileMIMEType: string) {
-    this.sxfileopener.open(filePath, fileMIMEType).then(success => {
+    this.sxfilehelper.open(filePath, fileMIMEType).then(success => {
       console.log("success", JSON.stringify(success));
       alert("success" + JSON.stringify(success));
     }).catch(error => {
       console.error("error", JSON.stringify(error));
       alert("error" + JSON.stringify(error));
     });
+  }
+
+  //Save Image Function
+  saveImg() {
+    let imageName = "jpg.jpg";
+    const ROOT_DIRECTORY = 'file:///sdcard//';
+    const downloadFolderName = 'tempDownloadFolder';
+
+    //Create a folder in memory location
+    // this.file.createDir(ROOT_DIRECTORY, downloadFolderName, true)
+    //   .then((entries) => {
+
+        //Copy our asset/img/FreakyJolly.jpg to folder we created
+        this.file.copyFile(this.file.applicationDirectory + "www/assets/file/", imageName, ROOT_DIRECTORY + downloadFolderName + '//', imageName)
+          .then((entries) => {
+
+            //Open copied file in device's default viewer
+            this.sxfilehelper.open(ROOT_DIRECTORY + downloadFolderName + "/" + imageName, 'image/jpeg')
+              .then(() => console.log('File is opened'))
+              .catch(e => alert('open error:' + JSON.stringify(e)));
+          })
+          .catch((error) => {
+            alert('copyFile error:' + JSON.stringify(error));
+          });
+      // })
+      // .catch((error) => {
+      //   alert('createDir error:' + JSON.stringify(error));
+      // });
   }
 
 }

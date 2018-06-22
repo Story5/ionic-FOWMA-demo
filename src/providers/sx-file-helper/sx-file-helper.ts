@@ -9,7 +9,7 @@ import { File, Entry } from '@ionic-native/file';
   and Angular DI.
 */
 @Injectable()
-export class SxFileOpenerProvider {
+export class SxFileHelperProvider {
 
   constructor(
     public file:File,
