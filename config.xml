@@ -11,6 +11,10 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <access origin="file:///*" />
+    <access origin="cdvfile://*" />
+    <allow-navigation href="file:///*/*" />
+    <allow-navigation href="cdvfile://*" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -80,19 +84,11 @@
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
-    <plugin name="cordova-plugin-device" spec="2.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="1.1.19" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
-    <plugin name="cordova-plugin-document-viewer" spec="^0.9.10" />
     <allow-navigation href="http://192.168.0.19:8100" />
-    <plugin name="cordova-plugin-filepath" spec="^1.3.0" />
-    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.1">
-        <variable name="OKHTTP_VERSION" value="3.+" />
-        <variable name="LOCATION_USAGE_DESCRIPTION" value="This app requires access to your location for navigation purposes" />
-    </plugin>
-    <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
     <edit-config file="*-Info.plist" mode="merge" target="LSApplicationQueriesSchemes">
         <array>
             <string>twitter</string>
@@ -100,7 +96,6 @@
             <string>pricetag</string>
         </array>
     </edit-config>
-    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="7.0.0" />
 </widget>

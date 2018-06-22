@@ -7,18 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item-group padding-bottom>
-    <button ion-button icon-left block color="dark" (click)="availableApps()">
-      <ion-icon name="appstore"></ion-icon>
-      availableApps
-    </button>
 
-    <button ion-button icon-left block color="dark" (click)="checkApp()">
-      <ion-icon name="appstore"></ion-icon>
-       checkApp
-    </button>
-  </ion-item-group>
-  
   <ion-item-group padding-bottom>
     <button ion-button icon-left block color="danger" (click)="openPDF()">
       <ion-icon name="document"></ion-icon>
@@ -46,13 +35,10 @@
       <ion-icon name="cube"></ion-icon>
       open DWG
     </button>
+    <button ion-button icon-left block color="light" (click)="openAPK()">
+      <ion-icon name="logo-android"></ion-icon>
+      open APK
+    </button>
   </ion-item-group>
-
-  <ion-grid *ngIf="appList.length > 0">
-    <ion-row *ngFor="let item of appList" (click)="jumpToApp(item)">
-      <ion-col col-4>{{item.app}}</ion-col>
-      <ion-col col-4>{{item.appName}}</ion-col>
-      <ion-col col-4>{{item.state}}</ion-col>
-    </ion-row>
-  </ion-grid>
+  
 </ion-content>

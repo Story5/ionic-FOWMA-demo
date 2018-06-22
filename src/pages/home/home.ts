@@ -1,11 +1,24 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { SxFileOpenerProvider } from '../../providers/sx-file-opener/sx-file-opener';
-import { DocumentViewerOptions } from '@ionic-native/document-viewer';
 import { SxTipProvider } from '../../providers/sx-tip';
-import { LaunchNavigatorOptions, LaunchNavigator } from '@ionic-native/launch-navigator';
-import { SxBrowserProvider } from '../../providers/sx-browser';
+import { Entry } from '@ionic-native/file';
 
+enum FileMIMEType {
+  MIME_PDF = "application/pdf",
+
+  MIME_DOC = "application/msword",
+  MIME_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+
+  MIME_XLS = "application/vnd.ms-excel",
+  MIME_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+
+  MIME_PPT = "application/vnd.ms-powerpoint",
+  MIME_PPTX = "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+
+  MIME_DWG = "image/vnd.dwg",
+  MIME_APK = "application/vnd.android.package-archive",
+}
 
 enum Office {
   Word = 0,
@@ -26,87 +39,18 @@ export class HomePage {
     public navCtrl: NavController,
     public sxfileopener:SxFileOpenerProvider,
     public sxtip:SxTipProvider,
-    public sxbrowser:SxBrowserProvider
   ) {
 
   }
 
-  
-
-  availableApps() {
-    this.platform.ready().then(()=>{
-      this.sxfileopener.availableApps().then((apps:any)=>{
-        for (const key in apps) {
-          if (apps.hasOwnProperty(key)) {
-            const element = apps[key];
-            this.appList.push({
-              app: key,
-              appName: this.sxfileopener.getAppDisplayName(key),
-              state: element
-            });
-          }
-        }
-      }).catch(error => {
-      })
-    })
-  }
-
-  checkApp() {
-    this.showInputSchemePrompt((data) => {
-      let app = data.URLScheme;
-      app = app + "://";
-      this.sxfileopener.check(app).then(data => {
-        console.log("检查成功了:", JSON.stringify(data));
-        this.showJumpToAppPrompt(app,(data) => {
-          let Deeplinks = data.Deeplinks;
-          let fullScheme = app + Deeplinks;
-          this.sxbrowser.openUrlWithPhoneBrowser(fullScheme);
-        })
-      }).catch(error => {
-        console.error("检查失败了:", JSON.stringify(error));
-      });
-    })
-  }
-
-  showInputSchemePrompt(handler) {
-    this.sxtip.showPrompt("CheckApp", "Please input the app's URL Scheme", "URLScheme", "URL Scheme", handler);
-  }
-
-  showJumpToAppPrompt(app,handler) {
-    this.sxtip.showPrompt("Jump to App", "Whether jump to " + app + " or not", "Deeplinks", "Deeplinks", handler);
-  }
-
   openPDF() {
-    this.platform.ready().then(()=>{
-      let filePath = "assets/file/pdf.pdf";
-      this.sxfileopener.resolveNativePath(filePath).then(filePath => {
-        console.log("ResolvePath:", filePath);
-        alert("ResolvePath:" + filePath);
-      })
-    })
-
-    // const options: DocumentViewerOptions = {
-    //   title: 'My PDF'
-    // }
-
-    // this.sxfileopener.viewDocument(
-    //   filePath, 
-    //   'application/pdf', 
-    //   options,
-    // )
-
     
-    // this.sxfileopener.open(filePath, 'application/pdf').then(
-    //   () => {
-    //     console.log('File is opened')
-    //   }).catch(
-    //     e => {
-    //       console.log('Error opening file', e)
-    //       alert(JSON.stringify(e));
-    //     });
   }
 
   openOffice(type) {
+    var path = "";
+    var fileMIMEType = "";
+
     switch (type) {
       case Office.Word:
         
@@ -123,11 +67,34 @@ export class HomePage {
   }
 
   openDWG() {
-
+    
+    var path = "assets/file/dwg.dwg";
+    path = decodeURI(path);
+    console.log("decodeURI:",path);
+    this.sxfileopener.resolveLocalFilesystemUrl(path).then((entry: Entry)=>{
+      console.log("resolve1-fullPath:" + entry.fullPath);
+      console.log("resolve1-nativeURL:" + entry.nativeURL);
+    }).catch(error => {
+      console.error(JSON.stringify(error));
+    });
+    var fileMIMEType = FileMIMEType.MIME_DWG;
+    this.openFile(path,fileMIMEType)
   }
 
-  jumpToApp(item) {
-    
+  openAPK() {
+    var path = "assets/file/apk.apk";
+    var fileMIMEType = FileMIMEType.MIME_APK;
+    this.openFile(path, fileMIMEType)
+  }
+
+  openFile(filePath: string, fileMIMEType: string) {
+    this.sxfileopener.open(filePath, fileMIMEType).then(success => {
+      console.log("success", JSON.stringify(success));
+      alert("success" + JSON.stringify(success));
+    }).catch(error => {
+      console.error("error", JSON.stringify(error));
+      alert("error" + JSON.stringify(error));
+    });
   }
 
 }
