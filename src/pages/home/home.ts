@@ -4,6 +4,7 @@ import { SxTipProvider } from '../../providers/sx-tip';
 import { Entry, File } from '@ionic-native/file';
 import { SxFileHelperProvider } from '../../providers/sx-file-helper/sx-file-helper';
 
+
 enum FileMIMEType {
   MIME_PDF = "application/pdf",
 
