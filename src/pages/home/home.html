@@ -30,7 +30,7 @@
     </button>
   </ion-item-group>
 
-  <ion-item-group>
+  <ion-item-group padding-bottom>
     <button ion-button icon-left block color="light" (click)="openDWG()">
       <ion-icon name="cube"></ion-icon>
       open DWG
@@ -41,6 +41,13 @@
     </button>
   </ion-item-group>
 
-  <div id="container"></div>
+  <ion-item-group>
+    <button ion-button icon-left block color="dark" (click)="downloadFile()">
+      <ion-icon name="download"></ion-icon>
+       downloadFile
+    </button>
+  </ion-item-group>
+
+  <!-- <div id="container"></div> -->
   
 </ion-content>

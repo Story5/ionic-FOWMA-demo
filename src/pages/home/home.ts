@@ -3,6 +3,8 @@ import { NavController, Platform } from 'ionic-angular';
 import { SxTipProvider } from '../../providers/sx-tip';
 import { Entry, File } from '@ionic-native/file';
 import { SxFileHelperProvider } from '../../providers/sx-file-helper/sx-file-helper';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { SxFileTranferProvider } from '../../providers/sx-file-tranfer';
 
 
 enum FileMIMEType {
@@ -40,7 +42,8 @@ export class HomePage {
     public navCtrl: NavController,
     public sxtip: SxTipProvider,
     public sxfilehelper:SxFileHelperProvider,
-    public file : File
+    public file : File,
+    public fileTransfer:SxFileTranferProvider
   ) {
 
   }
@@ -130,6 +133,59 @@ export class HomePage {
     }).catch(error => {
       console.error(JSON.stringify(error));
     });
+  }
+
+  downloadFile() {
+    let urlbase = "http://192.168.0.19:8080/files/";
+    this.sxtip.presentActionSheet("请选择下载的文件类型", {
+      text: 'PDF',
+      handler: () => {
+        this.fileTransfer.downloadFile(urlbase + "pdf.pdf").subscribe(path => {
+          console.log("path:",path);
+          alert("downloadFile path:"+path);
+        })
+      }
+    }, {
+        text: 'Word',
+        handler: () => {
+          this.fileTransfer.downloadFile(urlbase + "doc.doc").subscribe(path => {
+            console.log("path:", path);
+            alert("downloadFile path:" + path);
+          })
+        }
+      }, {
+        text: 'Excel',
+        handler: () => {
+          this.fileTransfer.downloadFile(urlbase + "xls.xls").subscribe(path => {
+            console.log("path:", path);
+            alert("downloadFile path:" + path);
+          })
+        }
+      }, {
+        text: 'PPT',
+        handler: () => {
+          this.fileTransfer.downloadFile(urlbase + "ppt.ppt").subscribe(path => {
+            console.log("path:", path);
+            alert("downloadFile path:" + path);
+          })
+        }
+      }, {
+        text: 'DWG',
+        handler: () => {
+          this.fileTransfer.downloadFile(urlbase + "dwg.dwg").subscribe(path => {
+            console.log("path:", path);
+            alert("downloadFile path:" + path);
+          })
+        }
+      }, {
+        text: 'APK',
+        handler: () => {
+          this.fileTransfer.downloadFile(urlbase + "apk.apk").subscribe(path => {
+            console.log("path:", path);
+            alert("downloadFile path:" + path);
+          })
+        }
+      })
   }
 
   openFile(filePath: string, fileMIMEType: string) {

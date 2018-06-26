@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, LoadingController, AlertController, Platform, Loading } from 'ionic-angular';
+import { ToastController, LoadingController, AlertController, Platform, Loading, ActionSheetController } from 'ionic-angular';
 // import { AppVersion } from '@ionic-native/app-version';
 
 /*
@@ -20,6 +20,7 @@ export class SxTipProvider {
   constructor(
     public platform: Platform,
     public alertCtrl: AlertController,
+    public actionSheetCtrl:ActionSheetController,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController // public appVersion: AppVersion
   ) {
@@ -28,6 +29,21 @@ export class SxTipProvider {
       //   this.appName = appName;
       // });
     });
+  }
+
+  presentActionSheet(title,...rest:any[]) {
+    let buttons = rest.concat({
+      text: '取消',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    })
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'title',
+      buttons: buttons
+    });
+    actionSheet.present();
   }
 
   alert(subTitle: string, cancelText = "确认", cancelHandler = () => {}) {

@@ -6,11 +6,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SxTipProvider } from '../providers/sx-tip';
 import { SxFileHelperProvider } from '../providers/sx-file-helper/sx-file-helper';
+import { SxFileTranferProvider } from '../providers/sx-file-tranfer';
+
 
 @NgModule({
   declarations: [
@@ -31,9 +34,11 @@ import { SxFileHelperProvider } from '../providers/sx-file-helper/sx-file-helper
     SplashScreen,
     File,
     FileOpener,
+    FileTransfer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SxTipProvider,
-    SxFileHelperProvider
+    SxFileHelperProvider,
+    SxFileTranferProvider
   ]
 })
 export class AppModule {}
