@@ -88,7 +88,6 @@
     <plugin name="cordova-plugin-ionic-webview" spec="1.1.19" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
-    <allow-navigation href="http://192.168.0.19:8100" />
     <edit-config file="*-Info.plist" mode="merge" target="LSApplicationQueriesSchemes">
         <array>
             <string>twitter</string>
@@ -98,5 +97,5 @@
     </edit-config>
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="~7.0.0" />
+    <engine name="android" spec="7.0.0" />
 </widget>
