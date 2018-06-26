@@ -45,47 +45,90 @@ export class HomePage {
   }
 
   openPDF() {
-    this.saveImg();
+    console.log("openPDF");
+    let path = this.file.applicationDirectory + "www/assets/file/";
+    let file = "pdf.pdf"
+    console.log(path);
+    this.file.checkFile(path,file).then((existed:boolean)=>{
+      console.log("checkFile:",existed);
+      if (existed) {
+        this.openFile(path + file,"*")
+      }
+    }).catch(error => {
+      console.error(JSON.stringify(error));
+    });
   }
 
   openOffice(type) {
-    var path = "";
+    console.log("openOffice");
+    var path = this.file.applicationDirectory + "www/assets/file/";
+    var file = "";
     var fileMIMEType = "";
 
     switch (type) {
       case Office.Word:
-        
+      {
+          path = path + "office/word/";
+          file = "doc.doc";
+      }
         break;
       case Office.Excel:
-
+      {
+          path = path + "office/excel/";
+          file = "xls.xls";
+      }
         break;
       case Office.PowerPoint:
-
+        {
+          path = path + "office/ppt/";
+          file = "ppt.ppt";
+        }
         break;
       default:
         break;
     }
-  }
 
-  openDWG() {
     
-    var path = "assets/file/dwg.dwg";
-    path = decodeURI(path);
-    console.log("decodeURI:",path);
-    this.sxfilehelper.resolveLocalFilesystemUrl(path).then((entry: Entry)=>{
-      console.log("resolve1-fullPath:" + entry.fullPath);
-      console.log("resolve1-nativeURL:" + entry.nativeURL);
+    console.log(path);
+    this.file.checkFile(path, file).then((existed: boolean) => {
+      console.log("checkFile:", existed);
+      if (existed) {
+        this.openFile(path + file, "*")
+      }
     }).catch(error => {
       console.error(JSON.stringify(error));
     });
-    var fileMIMEType = FileMIMEType.MIME_DWG;
-    this.openFile(path,fileMIMEType)
+  }
+
+  openDWG() {
+    console.log("openDWG");
+
+    let path = this.file.applicationDirectory + "www/assets/file/";
+    let file = "dwg.dwg"
+    console.log(path);
+    this.file.checkFile(path, file).then((existed: boolean) => {
+      console.log("checkFile:", existed);
+      if (existed) {
+        this.openFile(path + file, "*")
+      }
+    }).catch(error => {
+      console.error(JSON.stringify(error));
+    });
   }
 
   openAPK() {
-    var path = "assets/file/apk.apk";
-    var fileMIMEType = FileMIMEType.MIME_APK;
-    this.openFile(path, fileMIMEType)
+    console.log("openAPK");
+    let path = this.file.applicationDirectory + "www/assets/file/";
+    let file = "apk.apk"
+    console.log(path);
+    this.file.checkFile(path, file).then((existed: boolean) => {
+      console.log("checkFile:", existed);
+      if (existed) {
+        this.openFile(path + file, "*")
+      }
+    }).catch(error => {
+      console.error(JSON.stringify(error));
+    });
   }
 
   openFile(filePath: string, fileMIMEType: string) {
@@ -97,33 +140,4 @@ export class HomePage {
       alert("error" + JSON.stringify(error));
     });
   }
-
-  //Save Image Function
-  saveImg() {
-    let imageName = "jpg.jpg";
-    const ROOT_DIRECTORY = 'file:///sdcard//';
-    const downloadFolderName = 'tempDownloadFolder';
-
-    //Create a folder in memory location
-    // this.file.createDir(ROOT_DIRECTORY, downloadFolderName, true)
-    //   .then((entries) => {
-
-        //Copy our asset/img/FreakyJolly.jpg to folder we created
-        this.file.copyFile(this.file.applicationDirectory + "www/assets/file/", imageName, ROOT_DIRECTORY + downloadFolderName + '//', imageName)
-          .then((entries) => {
-
-            //Open copied file in device's default viewer
-            this.sxfilehelper.open(ROOT_DIRECTORY + downloadFolderName + "/" + imageName, 'image/jpeg')
-              .then(() => console.log('File is opened'))
-              .catch(e => alert('open error:' + JSON.stringify(e)));
-          })
-          .catch((error) => {
-            alert('copyFile error:' + JSON.stringify(error));
-          });
-      // })
-      // .catch((error) => {
-      //   alert('createDir error:' + JSON.stringify(error));
-      // });
-  }
-
 }
