@@ -3,8 +3,6 @@ import { NavController, Platform } from 'ionic-angular';
 import { SxTipProvider } from '../../providers/sx-tip';
 import { Entry, File } from '@ionic-native/file';
 import { SxFileHelperProvider } from '../../providers/sx-file-helper/sx-file-helper';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-// import { SxFileTranferProvider } from '../../providers/sx-file-tranfer';
 
 
 enum FileMIMEType {
@@ -41,9 +39,8 @@ export class HomePage {
     public platform:Platform,
     public navCtrl: NavController,
     public sxtip: SxTipProvider,
+    public file: File,
     public sxfilehelper:SxFileHelperProvider,
-    public file : File,
-    // public fileTransfer:SxFileTranferProvider
   ) {
 
   }
@@ -136,10 +133,13 @@ export class HomePage {
   }
 
   downloadFileWithUrl(url) {
-    // this.fileTransfer.downloadFile(url).subscribe(path => {
-    //   console.log("path:", path);
-    //   alert("downloadFile path:" + path);
-    // })
+    this.sxfilehelper.downloadFile(url).subscribe(path => {
+      console.log("path:", path);
+      alert("downloadFile path:" + path);
+    },error => {
+      console.log("error:", JSON.stringify(error));
+      alert("error:" + JSON.stringify(error));
+    })
   }
 
   downloadFile() {
