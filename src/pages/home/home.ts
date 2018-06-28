@@ -133,7 +133,10 @@ export class HomePage {
   }
 
   downloadFileWithUrl(url) {
-    this.sxfilehelper.downloadFile(url).subscribe(path => {
+    var uri = encodeURI(url);
+    console.log("url:",url);
+    console.log("uri:", uri);
+    this.sxfilehelper.downloadFile(uri).subscribe(path => {
       console.log("path:", path);
       alert("downloadFile path:" + path);
     },error => {

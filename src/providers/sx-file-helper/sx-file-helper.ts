@@ -58,12 +58,14 @@ export class SxFileHelperProvider {
     if (this.platform.is('android')) {
       filePath =
         this.file.externalApplicationStorageDirectory + fileName + "." + format;
-    } else {
+    } else if (this.platform.is('ios')) {
       filePath =
         this.file.tempDirectory.replace(/^file:\/\//, "") +
         fileName +
         "." +
         format;
+    } else {
+      filePath = this.file.dataDirectory + fileName + "." + format;
     }
 
     const fileTransfer: FileTransferObject = this.transfer.create();
