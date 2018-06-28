@@ -31,41 +31,19 @@ export class SxFileHelperProvider {
     return this.file.resolveLocalFilesystemUrl(fileUrl);
   }
 
-  getCurrentTime() {
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth();
-    let day = date.getDate();
-    let hour = date.getHours();
-    let minute = date.getMinutes();
-    let second = date.getSeconds();
-    let time =
-      year * Math.pow(10, 10) +
-      month * Math.pow(10, 8) +
-      day * Math.pow(10, 6) +
-      hour * Math.pow(10, 4) +
-      minute * 100 +
-      second;
-
-    return String(time);
-  }
-
-  downloadFile(url: string) {
-    let format = url.split(".").pop();
-
+  downloadFile(url: string,fileName:string,fileType:string) {
     var filePath;
-    let fileName = this.getCurrentTime();
     if (this.platform.is('android')) {
       filePath =
-        this.file.externalApplicationStorageDirectory + fileName + "." + format;
+        this.file.externalApplicationStorageDirectory + fileName + "." + fileType;
     } else if (this.platform.is('ios')) {
       filePath =
         this.file.tempDirectory.replace(/^file:\/\//, "") +
         fileName +
         "." +
-        format;
+      fileType;
     } else {
-      filePath = this.file.dataDirectory + fileName + "." + format;
+      filePath = this.file.dataDirectory + fileName + "." + fileType;
     }
 
     const fileTransfer: FileTransferObject = this.transfer.create();
